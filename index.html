@@ -101,9 +101,9 @@ button{font:inherit}
     linear-gradient(180deg, rgba(18,32,52,.38), rgba(10,18,30,.48)),
     url("assets/img_01.webp") center center / cover fixed no-repeat;
 }
-.page.active{display:flex}
+.page.active{display:flex;justify-content:center}
 .page-inner {
-  width:min(100%,760px);margin:0 auto;min-height:100dvh;
+  width:min(100%,440px);margin:0 auto;min-height:100dvh;
   padding:max(18px,env(safe-area-inset-top)) 15px max(15px,env(safe-area-inset-bottom));
   display:flex;flex-direction:column;
 }
@@ -158,12 +158,6 @@ button{font:inherit}
 }
 .hero-chip img{width:24px;height:24px;border-radius:50%;object-fit:cover}
 .hero-chip span{font-size:14px;font-weight:750}
-
-@media(min-width:700px){
-  #home{padding:18px 0}
-  .phone{min-height:calc(100dvh - 36px);border-radius:28px;overflow:hidden;
-    box-shadow:0 0 60px rgba(0,0,0,.36)}
-}
 
 .fox-badge {
   position:absolute;
