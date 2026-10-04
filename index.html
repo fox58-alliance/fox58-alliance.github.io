@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Правила альянса FOX</title>
+<style>
+:root {
+  --ink:#f7fbff;
+  --muted:#c9d8e6;
+  --line:rgba(255,255,255,.13);
+  --card:rgba(6,13,24,.88);
+  --panel:rgba(14,27,43,.22);
+  --gold:#e9b65e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#07111c;color:var(--ink)}
+body{min-height:100dvh}
+button{font:inherit}
+
+
+#home {
+  min-height:100dvh;
+  display:flex;
+  justify-content:center;
+  background:
+    linear-gradient(180deg, rgba(8,16,28,.22), rgba(10,18,30,.34)),
+    url("assets/img_01.webp") center center / cover no-repeat;
+  position:relative;
+  overflow:hidden;
+}
+#home::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.06));
+}
+#home::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg, transparent 58%, rgba(5,10,18,.12) 100%);
+}
+
+.phone {
+  width:min(100%,440px);
+  min-height:100dvh;
+  position:relative;
+  z-index:1;
+  padding:34px 18px 34px;
+}
+.title h1{font-size:33px;line-height:1.02;margin:0;text-shadow:0 3px 15px rgba(0,0,0,.3)}
+.title p{margin:8px 0 24px;color:#d7e4ef;font-size:14px}
+
+.outer-panel {
+  background:rgba(16,30,47,.20);
+  border:1px solid rgba(225,242,255,.28);
+  border-radius:25px;
+  padding:12px;
+  backdrop-filter:blur(2px);
+}
+.rule-card,.mini-card {
+  width:100%;
+  min-height:74px;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 13px;
+  margin:0 0 10px;
+  border-radius:17px;
+  border:1px solid var(--line);
+  background:rgba(10,22,36,.68);
+  color:#fff;text-align:left;cursor:pointer;
+  box-shadow:0 9px 20px rgba(0,0,0,.14);
+}
+.rule-card:last-child{margin-bottom:0}
+.rule-card:active,.mini-card:active{transform:scale(.99)}
+.iconbox {
+  width:45px;height:45px;flex:0 0 45px;
+  border-radius:14px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.10);
+}
+.iconbox img{width:33px;height:33px;object-fit:contain}
+.copy{min-width:0;display:block}
+.copy strong{display:block;font-size:16px;line-height:1.1;margin-bottom:5px}
+.copy small{display:block;font-size:12.5px;line-height:1.25;color:#c4d4e2}
+.chev{margin-left:auto;font-size:23px;color:#c8d6e3}
+
+.mini-card {
+  margin-top:14px;margin-bottom:0;
+  background:rgba(12,25,40,.72);
+}
+.mini-card .iconbox img{width:36px;height:36px}
+
+.page {
+  display:none;
+  min-height:100dvh;
+  background:
+    linear-gradient(180deg, rgba(18,32,52,.38), rgba(10,18,30,.48)),
+    url("assets/img_01.webp") center center / cover fixed no-repeat;
+}
+.page.active{display:flex}
+.page-inner {
+  width:min(100%,760px);margin:0 auto;min-height:100dvh;
+  padding:max(18px,env(safe-area-inset-top)) 15px max(15px,env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;
+}
+.read-card {
+  flex:1;display:flex;flex-direction:column;
+  border-radius:25px;
+  border:1px solid rgba(225,242,255,.28);
+  background:rgba(26,48,74,.62);
+  backdrop-filter:blur(12px);
+  padding:20px 16px 16px;
+  box-shadow:0 18px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.page-head{display:flex;gap:11px;align-items:flex-start;margin-bottom:18px}
+.page-head .iconbox{width:44px;height:44px;flex-basis:44px}
+.page-head h2{font-size:28px;line-height:1.08;margin:2px 0 4px}
+.page-head p{font-size:13px;color:#d5e4ef;margin:0}
+.bodytext{flex:1;font-size:16px;line-height:1.65;color:#f3f8fc;white-space:pre-line}
+.bodyrich{flex:1;font-size:16px;line-height:1.64;color:#f3f8fc}
+.bodyrich p{margin:.6em 0}
+.bodyrich h3{font-size:18px;margin:1em 0 .45em}
+.bodyrich ul{padding-left:1.2em}
+.bodyrich li{margin:.42em 0}
+.back {
+  width:100%;min-height:55px;border:0;border-radius:16px;
+  background:linear-gradient(135deg,#f7fbff,#dcecff);
+  color:#10233a;font-weight:850;font-size:16px;margin-top:18px;cursor:pointer
+}
+
+.cheat-list{display:flex;flex-direction:column;gap:10px;flex:1}
+.cheat-button {
+  width:100%;min-height:64px;
+  display:flex;align-items:center;gap:11px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;background:linear-gradient(135deg,rgba(39,76,109,.72),rgba(26,57,87,.68));
+  color:#fff;text-align:left;padding:11px 12px;cursor:pointer
+}
+.cheat-button .iconbox{width:39px;height:39px;flex-basis:39px}
+.cheat-button .iconbox img{width:31px;height:31px}
+.cheat-button strong{font-size:15px}
+.example {
+  margin:.75em 0;padding:11px 10px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;background:rgba(255,255,255,.085)
+}
+.example-title{font-weight:800;margin-bottom:7px}
+.example-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0}
+.hero-chip {
+  display:inline-flex;align-items:center;gap:6px;
+  padding:3px 8px 3px 4px;border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.16);
+}
+.hero-chip img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.hero-chip span{font-size:14px;font-weight:750}
+
+@media(min-width:700px){
+  #home{padding:18px 0}
+  .phone{min-height:calc(100dvh - 36px);border-radius:28px;overflow:hidden;
+    box-shadow:0 0 60px rgba(0,0,0,.36)}
+}
+
+.fox-badge {
+  position:absolute;
+  top:18px;
+  right:12px;
+  width:118px;
+  height:118px;
+  overflow:visible;
+  border-radius:0;
+  border:none;
+  box-shadow:none;
+  background:transparent;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+.fox-badge img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+  border-radius:0;
+}
+@media(max-width:360px){
+  .fox-badge{width:66px;height:66px;top:27px;right:14px}
+  .title h1{font-size:29px}
+}
+
+</style>
+</head>
+<body>
+
+<section id="home">
+  <main class="phone">
+    <div class="fox-badge" aria-label="Белая лиса FOX">
+      <img loading="eager" decoding="async" src="assets/img_02.webp" alt="Белая лиса">
+    </div>
+    <div class="title">
+      <h1>Правила<br>альянса FOX</h1>
+      <p>Правила • события • подсказки</p>
+    </div>
+
+    <section class="outer-panel">
+      <button class="rule-card" data-rule="1">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>Уважение и общение</strong><small>Спокойное общение, уважение к сокланам и союзникам</small></span>
+      <span class="chev">›</span>
+    </button>
+<button class="rule-card" data-rule="2">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>Активность в игре</strong><small>Регулярный онлайн, участие в жизни альянса</small></span>
+      <span class="chev">›</span>
+    </button>
+<button class="rule-card" data-rule="3">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>События альянса</strong><small>Медведь, Безумная Джо, совместные события и сборы</small></span>
+      <span class="chev">›</span>
+    </button>
+<button class="rule-card" data-rule="4">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>Помощь и развитие</strong><small>Помогаем друг другу и развиваемся вместе</small></span>
+      <span class="chev">›</span>
+    </button>
+<button class="rule-card" data-rule="5">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>Атаки, щиты и плитки</strong><small>Соблюдаем договорённости и предупреждаем заранее</small></span>
+      <span class="chev">›</span>
+    </button>
+<button class="rule-card" data-rule="6">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+      <span class="copy"><strong>Дисциплина и координация</strong><small>Слушаем R4/R5 и действуем организованно</small></span>
+      <span class="chev">›</span>
+    </button>
+
+      <button class="rule-card" data-rule="7">
+        <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+        <span class="copy"><strong>КОМПЛЕКСЫ FOX</strong><small>Какие комплексы защищаем, забираем и не трогаем</small></span>
+        <span class="chev">›</span>
+      </button>
+</section>
+<button id="openCheats" class="mini-card">
+      <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span>
+      <span class="copy"><strong>Мини-шпаргалки</strong><small>Короткие подсказки по игре</small></span>
+      <span class="chev">›</span>
+    </button>
+  </main>
+</section>
+
+<section id="rulePage" class="page">
+  <div class="page-inner">
+    <article class="read-card">
+      <header class="page-head">
+        <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_03.webp" alt=""></span>
+        <div><h2 id="ruleTitle"></h2><p>Правило альянса FOX</p></div>
+      </header>
+      <div id="ruleBody" class="bodytext"></div>
+      <button class="back" id="ruleBack">← Назад</button>
+    </article>
+  </div>
+</section>
+<section id="cheatsPage" class="page">
+  <div class="page-inner">
+    <article class="read-card">
+      <header class="page-head">
+        <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span>
+        <div>
+          <h2>Мини-шпаргалки</h2>
+          <p>Выберите нужный пункт</p>
+          <p style="margin-top:8px;color:#eef6ff;font-size:13px;line-height:1.45;padding:10px 11px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);">
+            ❗ <strong>Указания R4/R5 в чате всегда приоритетнее шпаргалки.</strong><br>
+            Время событий, герои, составы, соотношение войск и тактика могут меняться.
+          </p>
+<p style="margin-top:8px;color:#eef6ff;font-size:13px;line-height:1.45;padding:10px 11px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);">
+            🕒 <strong>Всё время на сайте указано по МСК.</strong>
+          </p>
+        </div>
+      </header>
+
+      <div class="cheat-list">
+        <button class="cheat-button" data-cheat="bear"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Охота на медведя</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="championship"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Чемпионат альянса</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="appointments"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Назначения президента</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="foundry"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Битва за литейную</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="mercenary"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Престиж наёмника</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="formation"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Формирование отряда и присоединение</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="joe"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Безумная Джо</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="maze"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Лабиринт</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="deer"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Маяк. Золотой олень</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="brothers"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>Братья по оружию</strong><span class="chev">›</span></button>
+        <button class="cheat-button" data-cheat="svs"><span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span><strong>SvS. Битва</strong><span class="chev">›</span></button>
+      </div>
+      <button class="back" id="cheatsBack">← Назад</button>
+    </article>
+  </div>
+</section>
+
+<section id="cheatPage" class="page">
+  <div class="page-inner">
+    <article class="read-card">
+      <header class="page-head">
+        <span class="iconbox"><img loading="lazy" decoding="async" src="assets/img_04.webp" alt=""></span>
+        <div><h2 id="cheatTitle"></h2><p>Мини-шпаргалка FOX</p></div>
+      </header>
+      <div id="cheatBody" class="bodyrich"></div>
+      <button class="back" id="cheatBack">← Назад</button>
+    </article>
+  </div>
+</section>
+
+<script>
+const rules = {
+1:{title:'Уважение и общение',text:'Общаемся спокойно и уважительно.\n\nОскорбления, конфликты и провокации внутри альянса не нужны. Если возник вопрос или спорная ситуация, сначала уточняем в чате или у R4/R5.\n\nМы одна команда, поэтому стараемся помогать друг другу.'},
+2:{title:'Активность в игре',text:'Альянсу важны активные игроки.\n\nЗаходим в игру регулярно, помогаем с таймерами, следим за сообщениями альянса и по возможности участвуем в общих делах.\n\nНе забываем делать пожертвования в технологии альянса и нажимать «Помочь» сокланам.\n\nВо время событий обращайте внимание на сообщения в чате и объявления от R4/R5, чтобы не пропустить важную информацию или изменение времени события.\n\nЕсли планируется длительное отсутствие, лучше заранее предупредить R4/R5.'},
+3:{title:'События альянса',text:'По возможности участвуем в событиях альянса.\n\nЭто касается Медведя, Безумной Джо, совместных сборов и других активностей, где важна командная работа.'},
+4:{title:'Помощь и развитие',text:'Помогаем друг другу развиваться и не оставляем сокланов один на один с вопросами.\n\nНажимаем помощь альянса, делимся полезной информацией, подсказываем новичкам и отвечаем на вопросы в чате.\n\nЕсли видите, что игроку нужна помощь с событием, сбором или развитием, по возможности подключайтесь. Чем сильнее становится каждый участник, тем сильнее становится весь альянс.'},
+5:{title:'Атаки, щиты и плитки',text:'Соблюдаем договорённости государства и правила альянса.\n\nБез договорённости на топки не нападаем. Если хотите атаковать игрока, топку или плитку, лучше заранее предупредить.\n\nЕсли не участвуете в боевых событиях, ставьте щит и следите за временем его действия. Войска с плиток лучше убрать – щит их не защищает.'},
+6:{title:'Дисциплина и координация',text:'Во время событий, боёв и общих задач слушаем указания R4/R5 и следим за сообщениями в чате.\n\nНе действуем хаотично и стараемся выполнять общий план альянса. Если дана команда подождать, занять точку, присоединиться к сбору или сменить направление, действуем согласованно.\n\nЕсли что-то непонятно, лучше уточнить в чате, чем сделать по-своему и помешать остальным.\n\nВо время важных событий не спорим и не создаём лишнюю суету. Все вопросы и предложения можно спокойно обсудить после завершения боя или события.\n\nГлавное: одна команда, один план, максимум результата. 🦊'},
+7:{title:'КОМПЛЕКСЫ FOX',html:`
+<p>🏰 <strong>Комплексы с подписью «наш» не отдаём.</strong> Если видите, что комплекс атакуют или он уязвим, защищайте его. Отправляйте войска в гарнизон.</p>
+
+<p>🔄 <strong>Комплексы с подписью «отдаём/забираем»</strong> – смотрите по надписи на метке, когда комплекс нужно забрать, а когда отдать.</p>
+
+<p>⛔ <strong>Комплексы без подписи не трогаем.</strong> Это не наши комплексы, не тревожим другие альянсы.</p>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;justify-content:center;">
+  <figure style="margin:0;width:min(46%,190px);">
+    <img loading="lazy" decoding="async" src="assets/img_05.webp" alt="Комплекс с подписью отдаём и забираем"
+         style="width:100%;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 20px rgba(0,0,0,.18);">
+    <figcaption style="font-size:12px;color:#d9e6f2;text-align:center;margin-top:6px;">«Отдаём / забираем»</figcaption>
+  </figure>
+
+  <figure style="margin:0;width:min(46%,190px);">
+    <img loading="lazy" decoding="async" src="assets/img_06.webp" alt="Комплекс с подписью наш"
+         style="width:100%;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.16);box-shadow:0 8px 20px rgba(0,0,0,.18);">
+    <figcaption style="font-size:12px;color:#d9e6f2;text-align:center;margin-top:6px;">«Наш»</figcaption>
+  </figure>
+</div>
+`}
+};
+
+const cheats = {
+  bear: {title:"Охота на медведя", html: `
+<p>На территории альянса находятся <strong>2 ловушки на медведя</strong>.</p>
+<p>☀️ <strong>Дневная – 16:30 МСК</strong><br>🌙 <strong>Вечерняя – 21:00 МСК</strong></p>
+<p>Выберите удобную ловушку. Если участвовали в дневной ловушке, вечером участвовать уже нельзя, и наоборот.</p>
+
+<h3>💥 Для присоединения к рейду</h3>
+<p>Первый герой: <strong>Джесси / Джассер / Со-Юн / без героя</strong>.<br>
+Желательное соотношение войск <strong>(пехота / копейщики / стрелки)</strong>: <strong>20 / 20 / 60</strong>.</p>
+
+<p>При присоединении к рейду важен именно <strong>первый герой</strong>: его первый навык в Экспедиции даёт бонус всему рейду. Если первым поставлен неподходящий герой, рейдер может исключить такой отряд из рейда.</p>
+
+<p>Второй и третий герои увеличивают вместимость отряда, поэтому можно поставить любых свободных героев.</p>
+
+<div class="example">
+  <div class="example-title">Примеры:</div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_07.webp" alt=""><span>Джесси</span></span> <span>/ любой / любой</span></div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_08.webp" alt=""><span>Джассер</span></span> <span>/ любой / любой</span></div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_09.webp" alt=""><span>Со-Юн</span></span> <span>/ любой / любой</span></div>
+</div>
+
+<h3>💥 Для создания рейда</h3>
+<p>Герои: <strong>Алонсо, Бахити, Грег, Джеронимо, Наталия, Флинт, Сергей, Молли, Миа</strong>.</p>
+
+<div class="example">
+  <div class="example-title">Примерные варианты:</div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_10.webp" alt=""><span>Молли</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_11.webp" alt=""><span>Сергей</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_12.webp" alt=""><span>Бахити</span></span></div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_10.webp" alt=""><span>Молли</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_13.webp" alt=""><span>Алонсо</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_14.webp" alt=""><span>Флинт</span></span></div>
+  <div class="example-row"><span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_15.webp" alt=""><span>Миа</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_13.webp" alt=""><span>Алонсо</span></span> / <span class="hero-chip"><img loading="lazy" decoding="async" src="assets/img_14.webp" alt=""><span>Флинт</span></span></div>
+</div>
+
+<p>Состав для создания рейда зависит от прокачки героев. Обычно ставят тех, у кого лучше уровень, снаряжение и навыки.</p>
+
+<h3>🔥 Важно</h3>
+<ul>
+  <li>Включите зверей.</li>
+  <li>Интервал запуска рейдов может меняться. Перед Медведем обязательно читайте чат и следуйте указаниям ведущего.</li>
+  <li>Все желающие быть рейдерами перед началом ловушки пишут в чат: <strong>«Хочу быть рейдером»</strong>.</li>
+  <li>Если ведущего нет, рейды запускаем по очереди в том порядке, в котором игроки написали в чат.</li>
+  <li>После 7-й минуты рейды могут запускать все участники Медведя.</li>
+</ul>
+`},
+  championship: {title:"Чемпионат альянса", html: `
+<p><strong>❗ Обязательно зарегистрироваться.</strong></p>
+
+<ol>
+  <li>Возьмите <strong>расширение отряда на 10%</strong>. Стоимость – <strong>2000 кристаллов</strong>. Если есть лишние кристаллы, можно купить дополнительные бонусы.</li>
+  <li>Первым героем ставим <strong>Сергея, Флинта или Логана</strong>.</li>
+  <li><strong>Джину и синих героев в отряд не ставим</strong>: они не боевые герои.</li>
+  <li>Соотношение войск <strong>(пехота / копейщики / стрелки)</strong>: <strong>60 / 40 / 0</strong> или <strong>60 / 20 / 20</strong>.</li>
+  <li>Регистрируйтесь <strong>на центр</strong>. Потом линии всё равно будут менять.</li>
+</ol>
+
+<p><strong>❗ После регистрации не выходите из альянса, иначе регистрация сбросится.</strong></p>
+`},
+  appointments: {title:"Как пользоваться назначениями президента", html: `
+<p>🏰 <strong>Солнечный замок → Преимущества президента → Назначение</strong></p>
+
+<p>🔹 <strong>Вице-президент</strong> – если запускаете стройку.</p>
+
+<p>🔹 <strong>Министр образования</strong> – если хотите быстро обучить войска с помощью ускорений. Перед этим убедитесь, что накопили ускорения и ресурсы.</p>
+
+<p>🔹 <strong>Министр обороны</strong> и <strong>Министр стратегии</strong> – на бои и на Мишку.</p>
+
+<p>🔹 <strong>Министр здоровья</strong> – на бои и на Битву за литейную.</p>
+
+<p>📌 Подавайте заявку на свободное время, которое ещё никто не занял.</p>
+
+<p>⏱️ Каждое назначение действует <strong>30 минут</strong>, и бонусы работают всё это время.</p>
+`},
+  foundry: {title:"Битва за литейную", html: `
+<p>🏭 <strong>БИТВА ЗА ЛИТЕЙНУЮ</strong></p>
+
+<p>🎯 Главная цель – захватывать здания.</p>
+
+<p>🏭 Сначала берём <strong>Котельную</strong> – она даёт <strong>+50% к скорости захвата</strong>.</p>
+
+<p>🚉 Затем <strong>Транспортную станцию</strong> – перезарядка телепорта сокращается до <strong>5 минут вместо 10</strong>.</p>
+
+<p>👑 На <strong>15-й минуте</strong> открывается <strong>Главная Литейная</strong> – постарайтесь занять её одной из первых.</p>
+
+<p>🔥 Если начался пожар, <strong>сразу тушите его</strong>. Кнопка появится на экране. Иначе вас отправят на базу.</p>
+
+<p>💣 Собирайте <strong>патроны</strong> на карте и добывайте их в <strong>Оружейных мастерских</strong>.</p>
+
+<p>🚀 Используйте <strong>бесплатные телепорты</strong> и <strong>ускорения марша</strong>.</p>
+
+<p>🏥 Помощь альянса при лечении <strong>не работает</strong> – лечимся только ускорителями.</p>
+
+<p>🏰 Не можете выбить врага из здания? <strong>Сожгите его Топку</strong> – он вернётся на базу.</p>
+
+<p>🛡️ Если вас атакует сильный противник – заранее выведите войска на соседнюю клетку <strong>(лагерь)</strong>, а после атаки верните обратно.</p>
+
+<p>💬 Меньше сообщений в чате – <strong>слушаем команды лидера</strong>.</p>
+
+<p>⭐ Если закончились ускорители и все войска в госпитале – можно выйти из Литейной. Через <strong>12 минут</strong> сможете зайти снова с полностью здоровыми войсками.</p>
+
+<h3>Перед битвой</h3>
+
+<p>📍 Возьмите одно из назначений на время битвы: <strong>Министр здоровья / Министр стратегии / Министр обороны</strong>.</p>
+
+<p>📍 Копите <strong>ускорители лечения</strong> – они очень пригодятся.</p>
+
+<p>📍 Можно взять <strong>бонусы города</strong> на вкладке <strong>«Война»</strong> – это вас усилит.</p>
+
+<p>📍 Включите <strong>боевых зверей</strong> для усиления: <strong>птица, леопард, лев</strong>.</p>
+
+<p>❗ <strong>Не тратьте кристаллы на лечение.</strong> Лучше потратьте их потом на Колесо Фортуны 😉</p>
+`},
+  mercenary: {title:"Престиж наёмника", html: `
+<p>📍 Выбирайте <strong>самый сложный уровень из доступных</strong>.</p>
+
+<p>📍 Последние <strong>5 уровней</strong> не убивайте сами – просите помощь альянса, чтобы все смогли получить награды.</p>
+
+<p>📍 Запуск <strong>жирных наёмников (машинки)</strong> – в <strong>20:00 МСК</strong> на следующий день после начала события, чтобы все успели пройти.</p>
+
+<p>📍 На боссов отправляем <strong>строго одного солдата без героев</strong>, чтобы машинка умирала медленнее и все успели ударить.</p>
+
+<p>❗ <strong>Добивание босса – только по команде R4.</strong></p>
+`},
+  formation: {title:"Формирование отряда и присоединение", html: `
+
+<h3>⚙️ АВТОПРИСОЕДИНЕНИЕ</h3>
+
+<p><strong>Альянс → Война → Присоединиться автоматически</strong></p>
+
+<div style="display:flex; flex-direction:column; gap:16px; margin-top:18px;">
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 1.</strong> Откройте <strong>«Альянс»</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_16.webp" alt="Шаг 1 – открыть Альянс" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 2.</strong> Перейдите во вкладку <strong>«Война»</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_17.webp" alt="Шаг 2 – вкладка Война" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 3.</strong> Нажмите <strong>«Присоединиться автоматически»</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_18.webp" alt="Шаг 3 – кнопка Присоединиться автоматически" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 4.</strong> Поставьте галочку <strong>«Используйте формацию»</strong>.</p>
+
+    <div style="margin:0 0 12px 0;padding:12px 13px;border-radius:13px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.10);">
+      <p style="margin:0 0 8px 0;"><strong>🔢 Что такое «Лимит очереди»?</strong></p>
+      <p style="margin:0 0 8px 0;">Это количество ваших очередей войск, которые игра может одновременно использовать для <strong>автоприсоединения к рейдам</strong>.</p>
+      <p style="margin:0 0 8px 0;">Например, если поставить <strong>6</strong>, автоприсоединение сможет использовать до шести доступных очередей.</p>
+      <p style="margin:0 0 8px 0;">Чаще всего для автоприсоединения сохраняют формации примерно на <strong>30 000, 50 000 или 70 000 войск</strong>. Размер выбирайте по своей вместимости отряда и количеству свободных войск.</p>
+
+      <div style="margin:10px 0 10px 0;padding:11px 12px;border-radius:12px;background:rgba(105,170,225,.10);border:1px solid rgba(180,220,255,.16);">
+        <p style="margin:0 0 6px 0;"><strong>💡 Пример:</strong></p>
+        <p style="margin:0;">Формация = <strong>30 000 войск</strong><br>
+        Лимит очереди = <strong>3</strong><br>
+        ➜ Автоприсоединение сможет отправить <strong>до 3 отдельных маршей по 30 000 войск</strong>.</p>
+        <p style="margin:8px 0 0 0;">Если свободны только <strong>2 очереди</strong> или не хватает свободных войск на третий марш, будет отправлено меньше маршей.</p>
+      </div>
+
+      <p style="margin:0;">Если хотите оставить одну или несколько очередей свободными для своих действий, поставьте лимит меньше максимального.</p>
+    </div>
+
+    <p style="margin:0 0 10px 0;">Ниже отметьте события, к которым хотите присоединяться автоматически.</p>
+
+    <p style="margin:0 0 10px 0;"><strong>Шаг 5.</strong> Нажмите на <strong>шестерёнку</strong>, чтобы открыть настройку формации.</p>
+    <div style="margin:12px 0 0 0;padding:12px 13px;border-radius:13px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.10);">
+      <p style="margin:0 0 8px 0;"><strong>❗ Важно:</strong></p>
+      <ul style="margin:0;padding-left:20px;">
+        <li style="margin:0 0 7px 0;">Если хотите использовать именно сохранённую формацию, выбирайте <strong>«Используйте формацию»</strong>, а не <strong>«Все войска (использовать героев автоматически)»</strong>.</li>
+        <li style="margin:0 0 7px 0;">Ниже обязательно отметьте галочками, <strong>к каким событиям</strong> разрешено автоприсоединение.</li>
+        <li style="margin:0;">Размеры <strong>30 000 / 50 000 / 70 000</strong> – это удобные примеры, а не обязательное правило. Перед событием читайте актуальные указания <strong>R4/R5</strong>.</li>
+      </ul>
+    </div>
+    <img loading="lazy" decoding="async" src="assets/img_19.webp" alt="Шаг 4 и 5 – настройки автоприсоединения" style="width:62%; max-width:340px; margin:0 auto; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 6.</strong> В открывшейся формации поставьте первым героем <strong>Джесси / Джассер / Со-Юн</strong>, добавьте нужные войска и нажмите <strong>«Сохранить»</strong>.</p>
+    <p style="margin:0 0 10px 0;">Обычно удобно сделать формацию на <strong>30 000 / 50 000 / 70 000 войск</strong>, в зависимости от вашей прокачки и доступного количества войск.</p>
+    <p style="margin:0 0 10px 0; color:#d9e7ff;">Для автоприсоединения важно, чтобы первым стоял <strong>Джесси, Джассер или Со-Юн</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_20.webp" alt="Шаг 6 – настройка формации для автоприсоединения" style="width:62%; max-width:340px; margin:0 auto; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+</div>
+
+<h3>💡 НАСТРОЙКА ОТРЯДОВ</h3>
+
+
+<p>Заранее настроенные отряды позволят быстро отправлять войска на события, рейды и другие задачи.</p>
+
+<ol>
+  <li>Откройте <strong>аватар → Войско</strong>.</li>
+  <li>Откройте раздел <strong>«Отряды»</strong>.</li>
+  <li>Выберите героев и выставьте нужное соотношение войск.</li>
+  <li>Когда состав готов, нажмите <strong>«Сохранить»</strong>.</li>
+  <li>В окне <strong>«Формация отряда»</strong> выберите нужную ячейку, при желании измените буквы или название и нажмите <strong>«Подтвердить»</strong>.</li>
+  <li>При следующей отправке войск выберите нужную сохранённую формацию сверху.</li>
+</ol>
+
+<p>📌 Настройте отдельные отряды на <strong>атаку, защиту и ловушку</strong>.</p>
+
+<div style="display:flex; flex-direction:column; gap:16px; margin-top:18px;">
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 1.</strong> Нажмите <strong>«Войско»</strong> в меню.</p>
+    <img loading="lazy" decoding="async" src="assets/img_21.webp" alt="Шаг 1 – нажмите Войско" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 2.</strong> Откройте раздел <strong>«Отряды»</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_22.webp" alt="Шаг 2 – откройте Отряды" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 3.</strong> Выставьте нужное количество войск кнопками <strong>«+ / −»</strong> или через <strong>«Соотношение»</strong>.</p>
+    <p style="margin:0 0 10px 0;"><strong>Шаг 4.</strong> Когда состав готов, нажмите <strong>«Сохранить»</strong>.</p>
+    <img loading="lazy" decoding="async" src="assets/img_23.webp" alt="Шаг 3 и 4 – настройка состава войск" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 5.</strong> После кнопки <strong>«Сохранить»</strong> откроется окно <strong>«Формация отряда»</strong>.</p>
+    <p style="margin:0 0 10px 0;">Здесь можно выбрать нужную ячейку, изменить буквы или название и затем нажать <strong>«Подтвердить»</strong>, чтобы сохранить формацию.</p>
+    <p style="margin:0 0 10px 0; color:#d9e7ff;">Названия могут быть <strong>любыми</strong> – это просто удобное для вас обозначение.</p>
+    <img loading="lazy" decoding="async" src="assets/img_24.webp" alt="Шаг 5 – окно формации отряда" style="width:100%; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+  <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:14px;">
+    <p style="margin:0 0 10px 0;"><strong>Шаг 6.</strong> При отправке войск выберите нужную сохранённую формацию сверху.</p>
+    <p style="margin:0 0 10px 0; color:#d9e7ff;">Названия формаций могут быть любыми – используйте обозначения, которые удобны именно вам.</p>
+    <img loading="lazy" decoding="async" src="assets/img_25.webp" alt="Шаг 6 – выбор сохранённой формации"
+         style="width:72%; max-width:380px; margin:0 auto; display:block; border-radius:14px; border:1px solid rgba(255,255,255,.12);">
+  </div>
+
+</div>
+`},
+  joe: {title:"Безумная Джо", html: `
+<p>📍 <strong>ОБЯЗАТЕЛЬНО:</strong> самых сильных героев закрепить на баррикаде <strong>(галочка)</strong>.</p>
+
+<p>📍 Всех <strong>стрелков</strong> вывести на плитки.</p>
+
+<p>📍 <strong>Пехоту и копейщиков</strong> отправляем союзникам. В крепе одного игрока должно быть минимум <strong>100 000 войск</strong>. В одной топке – не больше <strong>двух крепов</strong>.</p>
+
+<h3>🏰 ШТАБ – 10-я и 20-я волны</h3>
+
+<p><strong>Первый герой:</strong> Джесси / Джассер / Со-Юн.</p>
+
+<p><strong>Соотношение:</strong> 30 000 пехоты и 30 000 копейщиков.</p>
+
+<h3>❌ Во время события</h3>
+
+<ul>
+  <li><strong>Не тушим города.</strong></li>
+  <li><strong>Не лечим войска.</strong></li>
+  <li><strong>Не отзываем подкрепления от союзников.</strong></li>
+</ul>
+`},
+  maze: {title:"Лабиринт", html: `
+<p><strong>Соотношение войск в %:</strong></p>
+
+<ul>
+  <li><strong>Земли Героев</strong> – 50 / 10 / 40</li>
+  <li><strong>Пещера с чудищами</strong> – 50 / 15 / 35</li>
+  <li><strong>Шахта Талисманов</strong> – 60 / 20 / 20</li>
+  <li><strong>Тайная Лаборатория</strong> – 50 / 20 / 30</li>
+  <li><strong>Кузница Снаряжения</strong> – 60 / 15 / 25</li>
+  <li><strong>Сердце Геи</strong> – 50 / 15 / 35</li>
+</ul>
+
+<p><small>Порядок: пехота / копейщики / стрелки.</small></p>
+`},
+  deer: {title:"Маяк. Золотой олень", html: `
+<p>🦌 <strong>МАЯК. ЗОЛОТОЙ ОЛЕНЬ</strong></p>
+
+<p>Со временем олень становится жирным, но даёт хорошие награды. Советы, как его осилить:</p>
+
+<ul>
+  <li><strong>Герои:</strong> Молли / Миа + Флинт / Наталия / Джеронимо + Бахити / Алонсо.</li>
+  <li><strong>Соотношение пехота / копейщики / стрелки:</strong> 60 / 20 / 20 или 70 / 25 / 5 или 60 / 10 / 30.</li>
+  <li>Можно включить <strong>бонусы города</strong>, расширение рейда точно помогает.</li>
+  <li>Можно включить навыки <strong>птицы, леопарда, льва и снежного примата</strong>.</li>
+</ul>
+
+<h3>🧪 Экспериментируйте</h3>
+
+<p>Не бойтесь пробовать свои сочетания героев и соотношения войск. У всех разная прокачка, поэтому один и тот же состав может давать разный результат.</p>
+
+<p>Сравнивайте урон после каждой попытки и оставляйте вариант, который лучше работает именно у вас.</p>
+
+<p>😉 <strong>Удачи с оленем!</strong></p>
+`},
+  brothers: {title:"Братья по оружию", html: `
+<p>Соблюдаем договорённости государства и правила альянса.</p>
+
+<p>🔥 <strong>Без договорённости на топки не нападаем.</strong></p>
+
+<p>❗ Если хотите атаковать игрока, топку или плитку, лучше заранее предупредить, чтобы избежать конфликтов.</p>
+
+<p>🛡️ Кто не участвует, ставьте щит и следите за временем. Не забывайте про <strong>бесплатный 8-часовой щит</strong>, его можно использовать повторно после восстановления.</p>
+
+<p>Войска с плиток лучше убрать, <strong>щит их не защищает</strong>.</p>
+
+<h3>⚔️ Как набивать очки между собой</h3>
+
+<p>Можно договориться между собой и набивать очки друг на друге.</p>
+
+<p>Для этого можно отправить войска на ресурсную плитку и заранее договориться, кто будет атаковать.</p>
+
+<p>Обязательно обсудите, <strong>сколько будет атак и какими войсками</strong>, чтобы избежать лишних потерь.</p>
+
+<p>🏥 Перед этим проверьте место в медпункте.</p>
+
+<p>💬 <strong>Все такие атаки только по взаимной договорённости. Без согласия игрока не атакуем.</strong></p>
+`},
+  svs: {title:"SvS. Битва", html:`
+<p>📍 <strong>17:00 МСК</strong> – открываются границы между государствами для телепортации.</p>
+
+<p>📍 <strong>19:00 МСК</strong> – начало Битвы за замок.</p>
+
+<h3>💡 Что делать?</h3>
+
+<ul>
+  <li>С <strong>17:00 МСК</strong> всем малышам рекомендуется уйти под щиты. Либо заранее возьмите <strong>щит на 24 часа</strong> и не парьтесь.</li>
+  <li>Если есть игроки, которых нет в игре и которые остались без щитов, отправляйте креп с первым героем <strong>Патриком или Сергеем</strong>.</li>
+  <li>Не ходите на сборы, собирайте на <strong>ферме альянса</strong>.</li>
+  <li>Если вы не под щитом и вас пришли бить, используйте <strong>случайные телепорты</strong>. У каждого есть 10 бесплатных случайных телепортов.</li>
+</ul>
+
+<h3>⚔️ Как делать рейды для очков, чтобы не мешать своему государству?</h3>
+
+<ul>
+  <li>Делайте рейды на башни, которые захвачены альянсами противника из другого государства.</li>
+  <li>Лучше делать рейды <strong>после 21:00 МСК</strong>, когда уже будет понятно, кто держит башни и замок.</li>
+  <li>Следите за медпунктом. Не вступайте в новый рейд, пока не долечились.</li>
+  <li><strong>Нельзя бить топки на чёрной земле у замка.</strong> Можно бить топки на территории противника.</li>
+  <li>После SvS сможете восстановить до <strong>90% потерянных войск</strong>.</li>
+</ul>
+
+<h3>🏥 Как быстро лечить войска без ускорений</h3>
+
+<p><strong>Не лечите все войска одной очередью!</strong></p>
+
+<ul>
+  <li>Ставьте лечение примерно на <strong>5–10 минут</strong>, в зависимости от активности альянса.</li>
+  <li>Союзники нажимают <strong>«Помочь»</strong> или работает автопомощь, если союзники купили набор.</li>
+  <li>Лечение завершается почти мгновенно.</li>
+  <li>Запускайте следующую партию.</li>
+</ul>
+
+<p>Это самый быстрый способ лечения после крупных событий.</p>
+
+<p>💡 <strong>Совет:</strong> не тратьте ускорения, оставьте их для <strong>Битвы за литейную</strong>.</p>
+`}
+};
+
+const home = document.getElementById("home");
+const rulePage = document.getElementById("rulePage");
+const cheatsPage = document.getElementById("cheatsPage");
+const cheatPage = document.getElementById("cheatPage");
+const ruleTitle = document.getElementById("ruleTitle");
+const ruleBody = document.getElementById("ruleBody");
+const cheatTitle = document.getElementById("cheatTitle");
+const cheatBody = document.getElementById("cheatBody");
+
+function hideAll(){
+  home.style.display="none";
+  rulePage.classList.remove("active");
+  cheatsPage.classList.remove("active");
+  cheatPage.classList.remove("active");
+}
+function showHome(){
+  hideAll(); home.style.display="flex"; window.scrollTo(0,0);
+}
+function openRule(id){
+  const r=rules[id]; if(!r)return;
+  ruleTitle.textContent=r.title;
+  if(r.html){
+    ruleBody.innerHTML=r.html;
+  }else{
+    ruleBody.textContent=r.text;
+  }
+  hideAll(); rulePage.classList.add("active"); window.scrollTo(0,0);
+}
+function openCheats(){
+  hideAll(); cheatsPage.classList.add("active"); window.scrollTo(0,0);
+}
+function openCheat(id){
+  const c=cheats[id]; if(!c)return;
+  cheatTitle.textContent=c.title; cheatBody.innerHTML=c.html;
+  hideAll(); cheatPage.classList.add("active"); window.scrollTo(0,0);
+}
+
+document.querySelectorAll("[data-rule]").forEach(b=>b.addEventListener("click",()=>openRule(b.dataset.rule)));
+document.getElementById("openCheats").addEventListener("click",openCheats);
+document.querySelectorAll("[data-cheat]").forEach(b=>b.addEventListener("click",()=>openCheat(b.dataset.cheat)));
+document.getElementById("ruleBack").addEventListener("click",showHome);
+document.getElementById("cheatsBack").addEventListener("click",showHome);
+document.getElementById("cheatBack").addEventListener("click",openCheats);
+</script>
+
+<div style="text-align:center;margin:28px 0 18px;color:rgba(235,245,255,.68);font-size:12px;">
+  Обновлено: 04.10.2026
+</div>
+</body>
+</html>
